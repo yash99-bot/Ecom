@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load cart %}
+{% load custom_filter %}
+<!-- Link to template 2 -->
+<a href = "{% url 'cart' %}"></a>
+
+<div class="container">
+    <div class = "border rounded p-4 m-4">
+        <p class="display-4, ml-4, pl-4">Your orders</p>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">sno.</th>
+                <th scope="col">name</th>
+                <th scope="col">price</th>
+                <th scope="col">total</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+              <tr>
+                <th scope="row">sno.</th>
+                <td>{{order.product.name}}</td>
+                <td>{{order.product.price|currency}}</td>
+                <td>{{order.product.total|currency}}</td>
+              </tr>
+               {% endfor %} 
+              <tfoot>
+                  <tr>
+                      <th colspan="4">total</th>
+                      <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+
+                      </th>
+                  </tr>
+              </tfoot>
+            </tbody>
+          </table>
+
+    
+    </div>
+</div>
+
+
+
+{% endblock %} 
